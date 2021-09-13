@@ -22,14 +22,14 @@ namespace nanoFramework.OpenThread.Samples
         private static GpioPin ledGreen;
         private static GpioController gpioController = new GpioController();
 
-        private static LoWPAN loWPAN = new LoWPAN("COM2");
+        private static LoWPAN loWPAN = new LoWPAN();
 
         public static void Main()
         {
             Configuration.SetPinFunction(Gpio.IO16, DeviceFunction.COM2_TX);
             Configuration.SetPinFunction(Gpio.IO17, DeviceFunction.COM2_RX);
 
-            loWPAN.Open();
+            loWPAN.Open("COM2");
 
             try
             {
