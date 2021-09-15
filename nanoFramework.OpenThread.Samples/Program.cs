@@ -40,8 +40,7 @@ namespace nanoFramework.OpenThread.Samples
                 Debug.WriteLine(ex.Message);
                 return;
             }
-            
-
+                        
             Socket receiver = new Socket();
             receiver.Bind(IPAddress.Any, port);
             IPEndPoint remoteIp = null;
