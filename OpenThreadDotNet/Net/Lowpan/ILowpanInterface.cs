@@ -11,12 +11,12 @@ namespace dotNETCore.OpenThread.Net.Lowpan
     {
         Capabilities[] Capabilities { get; }
         HardwareAddress ExtendedAddress { get; }
-        InterfaceType InterfaceType { get; }
+        SpinelProtocolType InterfaceType { get; }
         IPAddress[] IPAddresses { get; }
         IPAddress IPLinkLocal { get; }
         IPAddress IPMeshLocal { get; }
         IPAddress[] IPMulticastAddresses { get; }
-        LastStatus LastStatus { get; }
+        SpinelStatus LastStatus { get; }
         LowpanCredential LowpanCredential { get; set; }
         LowpanIdentity LowpanIdentity { get; set; }
         string Name { get; }
@@ -25,16 +25,15 @@ namespace dotNETCore.OpenThread.Net.Lowpan
         uint PartitionId { get; }
         HardwareAddress HardwareAddress { get; }
         string ProtocolVersion { get; }
-        NetworkRole NetRole { get; set; }
+        SpinelNetRole NetRole { get; set; }
         byte[] ScanMask { get; set; }
-        PowerState PowerState { get; }
+        SpinelMcuPowerState PowerState { get; }
         byte[] SupportedChannels { get; }
         bool ThreadStackState { get; }
         string Vendor { get; }
         bool Connected { get; }
         bool Commissioned { get; }
-
-        event LowpanLastStatusHandler OnLastStatusHandler;       
+        
         event LowpanRoleChanged OnLowpanNetRoleChanged;
         event PacketReceivedEventHandler OnPacketReceived;
         event LowpanIpChanged OnIpChanged;
@@ -53,8 +52,8 @@ namespace dotNETCore.OpenThread.Net.Lowpan
         void Reset();
         LowpanBeaconInfo[] ScanBeacon();
         LowpanChannelInfo[] ScanEnergy();
-        bool ThreadDown();
-        bool ThreadUp();
+        bool ThreadStackDown();
+        bool ThreadStackUp();
         void SendAndWait(byte[] frame);
         void Send(byte[] frame);
     }
