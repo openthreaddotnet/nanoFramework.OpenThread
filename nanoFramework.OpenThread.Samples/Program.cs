@@ -45,6 +45,15 @@ namespace nanoFramework.OpenThread.Samples
             receiver.Bind(IPAddress.Any, port);
             IPEndPoint remoteIp = null;
 
+            IPAddress[] iPAddresses = loWPAN.IPAddresses;
+
+            foreach(IPAddress iPAddress in iPAddresses)
+            {
+                Debug.WriteLine(iPAddress.ToString());
+            }
+
+            Debug.WriteLine("UDP server running");
+
             while (true)
             {
                 if (receiver.Poll(-1, SelectMode.SelectRead))
