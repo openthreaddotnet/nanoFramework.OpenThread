@@ -32,19 +32,10 @@ namespace dotNETCore.OpenThread.Spinel
             }
 
             uint command = mDecoder.FrameCommand;
-            uint properyId = mDecoder.FramePropertyId;
-
-            //if (properyId == SpinelProperties.SPINEL_PROP_THREAD_CHILD_TABLE)
-            //{
-            //    if (command == SpinelCommands.RSP_PROP_VALUE_INSERTED || command == SpinelCommands.RSP_PROP_VALUE_REMOVED)
-            //    {
-            //        return null;
-            //    }
-            //}
-
+            uint propertyId = mDecoder.FramePropertyId;        
             object tempObj = null;
 
-            switch (properyId)
+            switch ((SpinelProperties)propertyId)
             {
                 //********************************************************************************
                 //
@@ -276,9 +267,31 @@ namespace dotNETCore.OpenThread.Spinel
                     ncpResponse = hwaddr;
                     break;
 
-                    //case SpinelProperties.SPINEL_PROP_IPV6_ML_PREFIX:
-                    //    ncpResponse = mDecoder.ReadFields("6C");
-                    //    break;
+                //case SpinelProperties.SPINEL_PROP_IPV6_ML_PREFIX:
+                //    ncpResponse = mDecoder.ReadFields("6C");
+                //    break;
+
+
+                //********************************************************************************
+                //
+                //          Thread properties
+                //
+                //********************************************************************************
+
+
+                case SpinelProperties.SPINEL_PROP_THREAD_CHILD_TABLE:
+                    tempObj = mDecoder.ReadFields("A(ESLLCCcCc)");
+                    break;
+
+                case SpinelProperties.SPINEL_PROP_THREAD_NEIGHBOR_TABLE:
+                   
+                    
+                    tempObj = mDecoder.ReadFields("A(t(ESLCcCbLLc))");
+                    break;
+                    
+                default:
+                    Console.WriteLine($"Prop id not found in swich {propertyId}.");
+                    break;
             }
 
             frameData = new FrameData(mDecoder.FramePropertyId, mDecoder.FrameHeader, mDecoder.GetFrameLoad(), ncpResponse);
