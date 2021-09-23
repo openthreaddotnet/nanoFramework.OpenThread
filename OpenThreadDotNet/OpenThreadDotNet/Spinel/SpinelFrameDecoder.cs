@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Text;
 
+
 #if (NANOFRAMEWORK_1_0)
 using nanoFramework.OpenThread.NCP;
 using nanoFramework.OpenThread.Core;
+using System.Diagnostics;
 namespace nanoFramework.OpenThread.Spinel
 {
 #else
@@ -290,7 +292,12 @@ namespace dotNETCore.OpenThread.Spinel
                     break;
                     
                 default:
+#if (NANOFRAMEWORK_1_0)
+                    Debug.WriteLine($"Prop id not found in swich {propertyId}.");
+#else             
                     Console.WriteLine($"Prop id not found in swich {propertyId}.");
+#endif
+
                     break;
             }
 
